@@ -39,6 +39,68 @@ This project aims to build a **predictive maintenance system** using **machine l
 - **Power BI / Tableau** → Dashboard visualization
 - **Docker & API** → Deployment & accessibility
 
+## 🚢 Running the API & Frontend Stack
+
+The repository ships with a FastAPI service (`deployment/API_endpoint.py`) and a Streamlit UI (`frontend/streamlit_app.py`). Both
+components are packaged together through the Dockerfile in `deployment/`.
+
+### Prerequisites
+
+- Docker 24+
+- (Optional) An external SQL database that exposes the `engine_predictions`, `kpi_trends`, and `kpi_aggregates` tables/views. If not
+  supplied the stack falls back to the bundled sample dataset located at `deployment/sample_data.json`.
+
+### Environment Variables
+
+| Variable | Purpose | Default |
+| --- | --- | --- |
+| `PREDICTIVE_API_KEY` | Shared secret expected in the `X-API-Key` header for `/predict`, `/metrics`, `/reload`. | `dev-secret` |
+| `PREDICTIVE_API_BASE_URL` | Base URL the Streamlit client uses to reach the API. | `http://localhost:8000` |
+| `DATABASE_URL` | Optional SQLAlchemy connection string for production data. | *(unset)* |
+
+### Build & Run with Docker
+
+```bash
+docker build -t predictive-maintenance -f deployment/Dockerfile .
+docker run \
+  -p 8000:8000 \
+  -p 8501:8501 \
+  -e PREDICTIVE_API_KEY="your-strong-secret" \
+  -e PREDICTIVE_API_BASE_URL="http://localhost:8000" \
+  predictive-maintenance
+```
+
+- The FastAPI service is exposed at **http://localhost:8000** (health check at `/health`).
+- The Streamlit dashboard is available at **http://localhost:8501**.
+
+To point the service at a managed database, supply a `DATABASE_URL` (e.g. `postgresql+psycopg://user:pass@host:5432/db`). The
+expected schema is documented in `deployment/API_endpoint.py`.
+
+### Authenticating Requests
+
+All non-health endpoints require an API key supplied through the `X-API-Key` header. Use the same secret for local development and
+the container runtime:
+
+```bash
+curl \
+  -H "X-API-Key: your-strong-secret" \
+  http://localhost:8000/predict
+```
+
+If a key is not provided or mismatched, the service returns **401 Unauthorized**.
+
+### Local Development
+
+To run the stack without Docker make sure the dependencies in `deployment/requirements.txt` are installed, then execute in separate
+terminals:
+
+```bash
+uvicorn deployment.API_endpoint:app --reload --port 8000
+streamlit run frontend/streamlit_app.py --server.port 8501
+```
+
+Update the `PREDICTIVE_API_BASE_URL` environment variable if the API is hosted elsewhere.
+
 ## 📝 Documentation & Portfolio Links
 - **[GitHub Repository](#)** (Code & Implementation)
 - **[Power BI/Tableau Dashboard](#)** (Live KPI Dashboard)
