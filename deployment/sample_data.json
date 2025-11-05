@@ -1,0 +1,55 @@
+{
+  "generated_at": "2024-06-01T12:00:00Z",
+  "engines": [
+    {
+      "engine_id": "FD001",
+      "cycle": 180,
+      "rul": 120,
+      "failure_probability": 0.05,
+      "alert_level": "normal"
+    },
+    {
+      "engine_id": "FD002",
+      "cycle": 220,
+      "rul": 72,
+      "failure_probability": 0.22,
+      "alert_level": "warning"
+    },
+    {
+      "engine_id": "FD003",
+      "cycle": 305,
+      "rul": 34,
+      "failure_probability": 0.41,
+      "alert_level": "critical"
+    }
+  ],
+  "engine_trends": [
+    {"engine_id": "FD001", "timestamp": "2024-05-20T00:00:00Z", "rul": 145, "failure_probability": 0.03},
+    {"engine_id": "FD001", "timestamp": "2024-05-25T00:00:00Z", "rul": 135, "failure_probability": 0.04},
+    {"engine_id": "FD001", "timestamp": "2024-05-30T00:00:00Z", "rul": 125, "failure_probability": 0.05},
+    {"engine_id": "FD002", "timestamp": "2024-05-20T00:00:00Z", "rul": 105, "failure_probability": 0.15},
+    {"engine_id": "FD002", "timestamp": "2024-05-25T00:00:00Z", "rul": 90, "failure_probability": 0.18},
+    {"engine_id": "FD002", "timestamp": "2024-05-30T00:00:00Z", "rul": 80, "failure_probability": 0.21},
+    {"engine_id": "FD003", "timestamp": "2024-05-20T00:00:00Z", "rul": 60, "failure_probability": 0.32},
+    {"engine_id": "FD003", "timestamp": "2024-05-25T00:00:00Z", "rul": 48, "failure_probability": 0.36},
+    {"engine_id": "FD003", "timestamp": "2024-05-30T00:00:00Z", "rul": 38, "failure_probability": 0.4}
+  ],
+  "kpi_aggregates": {
+    "production_efficiency": 92.5,
+    "failure_rate": 1.8,
+    "mean_time_to_failure": 640,
+    "average_rul": 108,
+    "downtime_cost": 4200
+  },
+  "kpi_trends": [
+    {"metric": "production_efficiency", "timestamp": "2024-05-20T00:00:00Z", "value": 91.3},
+    {"metric": "production_efficiency", "timestamp": "2024-05-25T00:00:00Z", "value": 92.0},
+    {"metric": "production_efficiency", "timestamp": "2024-05-30T00:00:00Z", "value": 92.5},
+    {"metric": "failure_rate", "timestamp": "2024-05-20T00:00:00Z", "value": 1.5},
+    {"metric": "failure_rate", "timestamp": "2024-05-25T00:00:00Z", "value": 1.6},
+    {"metric": "failure_rate", "timestamp": "2024-05-30T00:00:00Z", "value": 1.8},
+    {"metric": "downtime_cost", "timestamp": "2024-05-20T00:00:00Z", "value": 3800},
+    {"metric": "downtime_cost", "timestamp": "2024-05-25T00:00:00Z", "value": 4000},
+    {"metric": "downtime_cost", "timestamp": "2024-05-30T00:00:00Z", "value": 4200}
+  ]
+}
